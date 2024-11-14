@@ -9,8 +9,19 @@
 
     <ItemGroup>
         <PackageReference Include="CSharpFunctionalExtensions" Version="3.1.0" />
+        <PackageReference Include="CSharpFunctionalExtensions.HttpResults" Version="0.2.0" />
+        <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="8.0.11" />
         <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="8.0.1"/>
+        <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.11" />
+        <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="8.0.10" />
+        <PackageReference Include="Serilog.AspNetCore" Version="8.0.3" />
         <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0"/>
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\dhbw.WebEngineering.V2.Adapters\dhbw.WebEngineering.V2.Adapters.csproj" />
+      <ProjectReference Include="..\dhbw.WebEngineering.V2.Application\dhbw.WebEngineering.V2.Application.csproj" />
+      <ProjectReference Include="..\dhbw.WebEngineering.V2.Domain\dhbw.WebEngineering.V2.Domain.csproj" />
     </ItemGroup>
 
 </Project>
