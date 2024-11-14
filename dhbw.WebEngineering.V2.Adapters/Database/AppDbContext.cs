@@ -13,8 +13,8 @@ public class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(op
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        modelBuilder.Entity<Building>().HasQueryFilter(b => b.Deleted_at == null);
-        modelBuilder.Entity<Storey>().HasQueryFilter(s => s.Deleted_at == null);
+        modelBuilder.Entity<Building>().HasQueryFilter(b => b.deleted_at == null);
+        modelBuilder.Entity<Storey>().HasQueryFilter(s => s.deleted_at == null);
         modelBuilder.Entity<Room>().HasQueryFilter(r => r.Deleted_at == null);
 
         base.OnModelCreating(modelBuilder);

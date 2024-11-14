@@ -42,13 +42,13 @@ public class BuildingRepository : IBuildingRepository
         if (existingBuilding == null)
             return null;
 
-        existingBuilding.Name = entity.Name;
-        existingBuilding.Streetname = entity.Streetname;
-        existingBuilding.Housenumber = entity.Housenumber;
-        existingBuilding.Country_code = entity.Country_code;
-        existingBuilding.Postalcode = entity.Postalcode;
-        existingBuilding.City = entity.City;
-        existingBuilding.Deleted_at = entity.Deleted_at;
+        existingBuilding.name = entity.name;
+        existingBuilding.streetname = entity.streetname;
+        existingBuilding.housenumber = entity.housenumber;
+        existingBuilding.country_code = entity.country_code;
+        existingBuilding.postalcode = entity.postalcode;
+        existingBuilding.city = entity.city;
+        existingBuilding.deleted_at = entity.deleted_at;
 
         await _appDbContext.SaveChangesAsync();
 
@@ -64,7 +64,7 @@ public class BuildingRepository : IBuildingRepository
             return Result.Failure($"No existing Building with ID: {id}");
         }
 
-        building.Deleted_at = DateTime.UtcNow;
+        building.deleted_at = DateTime.UtcNow;
 
         await _appDbContext.SaveChangesAsync();
 

@@ -14,6 +14,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerWithJwtAuthorization(); // Configure Swagger with JWT authorization
 builder.Services.AddHealthChecks().AddCheck<DatabaseHealthCheck>("assets", HealthStatus.Unhealthy); // add Health-Check
 await builder.Services.AddJwtAuthenticationAsync(builder.Configuration, builder.Environment); // Configure JWT Authentication
+builder.Services.AddCustomJsonConverters(); // Add custom JSON converters to services
 
 var app = builder.Build();
 

@@ -59,27 +59,32 @@ public static class BuildingMapper
         );
     }
 
-    public static Result<ReadBuildingDto> ToDto(Building building)
+    public static ReadBuildingDto ToDto(Building building)
     {
         return new ReadBuildingDto
         {
-            Id = building.Id,
-            City = building.City,
-            Country_code = building.Country_code,
-            Housenumber = building.Housenumber,
-            Name = building.Name,
-            Postalcode = building.Postalcode,
-            Streetname = building.Streetname,
-            Deleted_at = building.Deleted_at,
+            Id = building.id,
+            City = building.city,
+            Country_code = building.country_code,
+            Housenumber = building.housenumber,
+            Name = building.name,
+            Postalcode = building.postalcode,
+            Streetname = building.streetname,
+            Deleted_at = building.deleted_at,
         };
     }
 
-    public static Result<List<ReadBuildingDto>> ToDto(List<Building> buildings)
+    public static List<ReadBuildingDto> ToDto(List<Building> buildings)
     {
         List<ReadBuildingDto> result = new List<ReadBuildingDto>();
 
-        buildings.ForEach(building => result.Add(ToDto(building).Value));
+        buildings.ForEach(building => result.Add(ToDto(building)));
 
         return result;
+    }
+
+    public static BuildingResponse ToBuildingsResponse(List<ReadBuildingDto> buildings)
+    {
+        return new BuildingResponse(buildings);
     }
 }

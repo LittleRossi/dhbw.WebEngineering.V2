@@ -4,14 +4,15 @@ namespace dhbw.WebEngineering.V2.Domain.Entities.Building;
 
 public record Building
 {
-    public required Guid Id { get; set; }
-    public required string Name { get; set; }
-    public required string Streetname { get; set; }
-    public required string Housenumber { get; set; }
-    public required string Country_code { get; set; }
-    public required string Postalcode { get; set; }
-    public required string City { get; set; }
-    public required DateTime? Deleted_at { get; set; }
+    public required Guid id { get; set; }
+    public required string name { get; set; }
+    public required string streetname { get; set; }
+    public required string housenumber { get; set; }
+    public required string country_code { get; set; }
+    public required string postalcode { get; set; }
+    public required string city { get; set; }
+
+    public required DateTime? deleted_at { get; set; }
 
     private Building() { }
 
@@ -28,14 +29,14 @@ public record Building
         DateTime deleted_at
     )
     {
-        Id = id;
-        Name = name;
-        Streetname = streetname;
-        Housenumber = housenumber;
-        Country_code = country_code;
-        Postalcode = postalcode;
-        City = city;
-        Deleted_at = deleted_at;
+        this.id = id;
+        this.name = name;
+        this.streetname = streetname;
+        this.housenumber = housenumber;
+        this.country_code = country_code;
+        this.postalcode = postalcode;
+        this.city = city;
+        this.deleted_at = deleted_at;
     }
 
     public static Building Create(
@@ -49,14 +50,14 @@ public record Building
     {
         return new Building
         {
-            Id = Guid.NewGuid(),
-            Name = name,
-            Streetname = streetname,
-            Housenumber = housenumber,
-            Country_code = country_code,
-            Postalcode = postalcode,
-            City = city,
-            Deleted_at = null,
+            id = Guid.NewGuid(),
+            name = name,
+            streetname = streetname,
+            housenumber = housenumber,
+            country_code = country_code,
+            postalcode = postalcode,
+            city = city,
+            deleted_at = null,
         };
     }
 }

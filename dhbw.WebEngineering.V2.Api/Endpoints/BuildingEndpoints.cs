@@ -21,7 +21,8 @@ public static class BuildingEndpoints
                 ) =>
                     await service
                         .GetAllAsync(include_deleted)
-                        .Bind(BuildingMapper.ToDto)
+                        .Map(BuildingMapper.ToDto)
+                        .Map(BuildingMapper.ToBuildingsResponse)
                         .ToOkHttpResult()
             )
             .WithName("Get all Buildings")
@@ -32,7 +33,7 @@ public static class BuildingEndpoints
                 "/api/v3/assets/buildings/{id}",
                 async ([FromServices] IBuildingService service, Guid id) =>
                 {
-                    var fetchedBuilding = await service.GetByIdAsync(id);
+                    var fetchedBuilding = await service.GetByIdAsync(id).Map(BuildingMapper.ToDto);
 
                     if (fetchedBuilding.IsFailure)
                         return Results.NotFound(fetchedBuilding.Error);
@@ -48,7 +49,7 @@ public static class BuildingEndpoints
                 "/api/v3/assets/buildings",
                 async (
                     [FromServices] IBuildingService service,
-                    Building entity,
+                    CreateBuildingDto entity,
                     ClaimsPrincipal user,
                     ILogger<BuildingService> logger
                 ) =>
@@ -60,7 +61,11 @@ public static class BuildingEndpoints
                         entity.GetType().Name,
                         entity
                     );
-                    var createdEntity = await service.CreateNewAsync(entity);
+
+                    var createdEntity = await BuildingMapper
+                        .ToEntity(entity)
+                        .Bind(service.CreateNewAsync)
+                        .Map(BuildingMapper.ToDto);
 
                     if (createdEntity.IsFailure)
                         return createdEntity.ToCreatedHttpResult();
@@ -79,7 +84,7 @@ public static class BuildingEndpoints
                 async (
                     [FromServices] IBuildingService service,
                     Guid id,
-                    Building entity,
+                    CreateBuildingDto entity,
                     ClaimsPrincipal user,
                     ILogger<BuildingService> logger
                 ) =>
@@ -91,7 +96,11 @@ public static class BuildingEndpoints
                         entity.GetType().Name,
                         entity
                     );
-                    var updatedEntity = await service.UpdateAsync(entity, id);
+
+                    var updatedEntity = await BuildingMapper
+                        .ToEntity(entity)
+                        .Bind(mappedEntity => service.UpdateAsync(mappedEntity, id))
+                        .Map(BuildingMapper.ToDto);
 
                     if (updatedEntity.IsFailure)
                         return Results.NotFound(updatedEntity.Error);

@@ -22,22 +22,22 @@ public class StoreyMapper
         return Storey.Create(name: createStoreyDto.Name, building_id: createStoreyDto.Building_id);
     }
 
-    public static Result<ReadStoreyDto> ToDto(Storey storey)
+    public static ReadStoreyDto ToDto(Storey storey)
     {
         return new ReadStoreyDto
         {
-            Id = storey.Id,
-            Name = storey.Name,
-            Building_id = storey.Building_id,
-            Deleted_at = storey.Deleted_at,
+            Id = storey.id,
+            Name = storey.name,
+            Building_id = storey.building_id,
+            Deleted_at = storey.deleted_at,
         };
     }
 
-    public static Result<List<ReadStoreyDto>> ToDto(List<Storey> storeys)
+    public static List<ReadStoreyDto> ToDto(List<Storey> storeys)
     {
         var result = new List<ReadStoreyDto>();
-        storeys.ForEach(storey => result.Add(ToDto(storey).Value));
+        storeys.ForEach(storey => result.Add(ToDto(storey)));
 
-        return Result.Success(result);
+        return result;
     }
 }

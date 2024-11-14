@@ -8,20 +8,20 @@ public class RoomMapper
     public static Result<Room> ToEntity(CreateRoomDto createRoomDto)
     {
         #region Validation
-        if (string.IsNullOrWhiteSpace(createRoomDto.Name))
+        if (string.IsNullOrWhiteSpace(createRoomDto.name))
         {
             return Result.Failure<Room>("Name cannot be empty.");
         }
-        if (createRoomDto.Storey_id == Guid.Empty)
+        if (createRoomDto.storey_id == Guid.Empty)
         {
             return Result.Failure<Room>("Storey_id cannot be an empty GUID.");
         }
         #endregion
 
-        return Room.Create(createRoomDto.Name, createRoomDto.Storey_id);
+        return Room.Create(createRoomDto.name, createRoomDto.storey_id);
     }
 
-    public static Result<ReadRoomDto> ToDto(Room room)
+    public static ReadRoomDto ToDto(Room room)
     {
         return new ReadRoomDto
         {
@@ -32,11 +32,11 @@ public class RoomMapper
         };
     }
 
-    public static Result<List<ReadRoomDto>> ToDto(List<Room> rooms)
+    public static List<ReadRoomDto> ToDto(List<Room> rooms)
     {
         var result = new List<ReadRoomDto>();
-        rooms.ForEach(room => result.Add(ToDto(room).Value));
+        rooms.ForEach(room => result.Add(ToDto(room)));
 
-        return Result.Success(result);
+        return result;
     }
 }

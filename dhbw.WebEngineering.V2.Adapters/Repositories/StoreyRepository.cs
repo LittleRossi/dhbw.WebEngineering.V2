@@ -42,9 +42,9 @@ public class StoreyRepository : IStoreyRepository
         if (existingStorey == null)
             return null;
 
-        existingStorey.Name = entity.Name;
-        existingStorey.Building_id = entity.Building_id;
-        existingStorey.Deleted_at = entity.Deleted_at;
+        existingStorey.name = entity.name;
+        existingStorey.building_id = entity.building_id;
+        existingStorey.deleted_at = entity.deleted_at;
 
         await _appDbContext.SaveChangesAsync();
 
@@ -60,7 +60,7 @@ public class StoreyRepository : IStoreyRepository
             return Result.Failure($"No existing Storey with ID: {id}");
         }
 
-        storey.Deleted_at = DateTime.UtcNow;
+        storey.deleted_at = DateTime.UtcNow;
 
         await _appDbContext.SaveChangesAsync();
 

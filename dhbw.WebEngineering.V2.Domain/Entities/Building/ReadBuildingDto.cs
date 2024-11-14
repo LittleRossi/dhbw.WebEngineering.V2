@@ -1,3 +1,5 @@
+using System.Text.Json.Serialization;
+
 namespace dhbw.WebEngineering.V2.Domain.Entities.Building;
 
 public record ReadBuildingDto
@@ -9,5 +11,7 @@ public record ReadBuildingDto
     public required string Country_code { get; set; }
     public required string Postalcode { get; set; }
     public required string City { get; set; }
+
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     public DateTime? Deleted_at { get; set; }
 }
