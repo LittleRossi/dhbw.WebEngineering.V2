@@ -39,4 +39,9 @@ public class RoomMapper
 
         return result;
     }
+
+    public static RoomResponse ToRoomResponse(List<ReadRoomDto> rooms)
+    {
+        return new RoomResponse(rooms);
+    }
 }

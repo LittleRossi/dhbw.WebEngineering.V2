@@ -27,5 +27,7 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 
 app.AddBuildingEndpoints();
+app.AddStatusEndpoints();
+app.AddRoomEndpoints();
 
 app.Run();
