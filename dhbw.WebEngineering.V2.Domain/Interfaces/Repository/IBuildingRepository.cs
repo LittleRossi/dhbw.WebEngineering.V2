@@ -5,7 +5,7 @@ namespace dhbw.WebEngineering.V2.Domain.Interfaces.Repository;
 
 public interface IBuildingRepository
 {
-    public Task<Maybe<List<Building>>> GetAllAsync();
+    public Task<Maybe<List<Building>>> GetAllAsync(bool includeDeleted = false);
     public Task<Maybe<Building>> GetByIdAsync(Guid id);
     public Task<Maybe<Building>> CreateAsync(Building entity);
     public Task<Maybe<Building>> UpdateAsync(Building entity, Guid id);
