@@ -9,5 +9,5 @@ public record CreateBuildingDto
     public required string country_code { get; set; }
     public required string postalcode { get; set; }
     public required string city { get; set; }
-    public DateTime? deleted_at { get; set; }
+    public required DateTime? deleted_at { get; set; }
 }
