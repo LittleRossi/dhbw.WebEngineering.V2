@@ -7,22 +7,22 @@ FROM --platform=$BUILDPLATFORM mcr.microsoft.com/dotnet/sdk:8.0-alpine AS build
 WORKDIR /source
 
 # Copy project files
-COPY ["dhbw.WebEngineeringV2.Api/dhbw.WebEngineeringV2.Api.csproj", "dhbw.WebEngineeringV2.Api/"]
-COPY ["dhbw.WebEngineeringV2.Adapters/dhbw.WebEngineeringV2.Adapters.csproj", "dhbw.WebEngineeringV2.Adapters/"]
-COPY ["dhbw.WebEngineeringV2.Application/dhbw.WebEngineeringV2.Application.csproj", "dhbw.WebEngineeringV2.Application/"]
-COPY ["dhbw.WebEngineeringV2.Domain/dhbw.WebEngineeringV2.Domain.csproj", "dhbw.WebEngineeringV2.Domain/"]
-COPY ["dhbw.WebEngineeringV2.Tests/dhbw.WebEngineeringV2.Tests.csproj", "dhbw.WebEngineeringV2.Tests/"]
+COPY ["dhbw.WebEngineering.V2.Api/dhbw.WebEngineering.V2.Api.csproj", "dhbw.WebEngineering.V2.Api/"]
+COPY ["dhbw.WebEngineering.V2.Adapters/dhbw.WebEngineering.V2.Adapters.csproj", "dhbw.WebEngineering.V2.Adapters/"]
+COPY ["dhbw.WebEngineering.V2.Application/dhbw.WebEngineering.V2.Application.csproj", "dhbw.WebEngineering.V2.Application/"]
+COPY ["dhbw.WebEngineering.V2.Domain/dhbw.WebEngineering.V2.Domain.csproj", "dhbw.WebEngineering.V2.Domain/"]
+COPY ["dhbw.WebEngineering.V2.Tests/dhbw.WebEngineering.V2.Tests.csproj", "dhbw.WebEngineering.V2.Tests/"]
 
 # Restore dependencies based on architecture to cache packages per platform
 ARG TARGETARCH
 RUN --mount=type=cache,id=nuget,target=/root/.nuget/packages \
-    dotnet restore "dhbw.WebEngineeringV2.Api/dhbw.WebEngineeringV2.Api.csproj" --arch ${TARGETARCH/amd64/x64}
+    dotnet restore "dhbw.WebEngineering.V2.Api/dhbw.WebEngineering.V2.Api.csproj" --arch ${TARGETARCH/amd64/x64}
 
 # Copy the entire source
 COPY . .
 
 # Set the working directory to the project folder
-WORKDIR /source/dhbw.WebEngineeringV2.Api
+WORKDIR /source/dhbw.WebEngineering.V2.Api
 
 # Build and publish the application
 ARG BUILD_CONFIGURATION=Release
@@ -43,4 +43,4 @@ USER root
 EXPOSE 8080
 
 # Start the application
-ENTRYPOINT ["dotnet", "dhbw.WebEngineeringV2.Api.dll"]
+ENTRYPOINT ["dotnet", "dhbw.WebEngineering.V2.Api.dll"]
