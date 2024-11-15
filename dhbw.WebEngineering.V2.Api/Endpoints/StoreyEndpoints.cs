@@ -1,5 +1,6 @@
 using System.Security.Claims;
 using CSharpFunctionalExtensions;
+using CSharpFunctionalExtensions.ValueTasks;
 using dhbw.WebEngineering.V2.Application.Services;
 using dhbw.WebEngineering.V2.Domain.Entities.Storey;
 using dhbw.WebEngineering.V2.Domain.Interfaces.Service;
@@ -81,7 +82,7 @@ public static class StoreyEndpoints
                 "/api/v3/assets/storeys",
                 async (
                     [FromServices] IStoreyService service,
-                    Storey entity,
+                    CreateStoreyDto entity,
                     ClaimsPrincipal user,
                     ILogger<RoomService> logger
                 ) =>
@@ -94,8 +95,9 @@ public static class StoreyEndpoints
                         entity
                     );
 
-                    var createdEntity = await service
-                        .CreateNewAsync(entity)
+                    var createdEntity = await StoreyMapper
+                        .ToEntity(entity)
+                        .Bind(service.CreateNewAsync)
                         .Map(StoreyMapper.ToDto);
 
                     if (createdEntity.IsFailure)

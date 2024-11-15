@@ -24,7 +24,7 @@ public class RoomRepository : IRoomRepository
 
     public async Task<Maybe<Room>> GetByIdAsync(Guid id)
     {
-        return await _appDbContext.rooms.FindAsync(id);
+        return await _appDbContext.rooms.IgnoreQueryFilters().FirstOrDefaultAsync(b => b.id == id);
     }
 
     public async Task<Maybe<Room>> CreateAsync(Room entity)
@@ -37,7 +37,9 @@ public class RoomRepository : IRoomRepository
 
     public async Task<Maybe<Room>> UpdateAsync(Room entity, Guid id)
     {
-        var existingRoom = await _appDbContext.rooms.FindAsync(id);
+        var existingRoom = await _appDbContext
+            .rooms.IgnoreQueryFilters()
+            .FirstOrDefaultAsync(b => b.id == id);
 
         if (existingRoom == null)
             return null;
@@ -53,14 +55,23 @@ public class RoomRepository : IRoomRepository
 
     public async Task<Result> DeleteAsync(Guid id, bool permanent = false)
     {
-        var room = await _appDbContext.rooms.FindAsync(id);
+        var room = await _appDbContext
+            .rooms.IgnoreQueryFilters()
+            .FirstOrDefaultAsync(b => b.id == id);
 
         if (room == null)
         {
             return Result.Failure($"No existing Room with ID: {id}");
         }
 
-        room.deleted_at = DateTime.UtcNow;
+        if (permanent)
+        {
+            _appDbContext.rooms.Remove(room);
+        }
+        else
+        {
+            room.deleted_at = DateTime.UtcNow;
+        }
 
         await _appDbContext.SaveChangesAsync();
 

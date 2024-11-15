@@ -24,7 +24,9 @@ public class BuildingRepository : IBuildingRepository
 
     public async Task<Maybe<Building>> GetByIdAsync(Guid id)
     {
-        return await _appDbContext.buildings.FindAsync(id);
+        return await _appDbContext
+            .buildings.IgnoreQueryFilters()
+            .FirstOrDefaultAsync(b => b.id == id);
     }
 
     public async Task<Maybe<Building>> CreateAsync(Building entity)
@@ -37,7 +39,9 @@ public class BuildingRepository : IBuildingRepository
 
     public async Task<Maybe<Building>> UpdateAsync(Building entity, Guid id)
     {
-        var existingBuilding = await _appDbContext.buildings.FindAsync(id);
+        var existingBuilding = await _appDbContext
+            .buildings.IgnoreQueryFilters()
+            .FirstOrDefaultAsync(b => b.id == id);
 
         if (existingBuilding == null)
             return null;
@@ -57,14 +61,31 @@ public class BuildingRepository : IBuildingRepository
 
     public async Task<Result> DeleteAsync(Guid id, bool permanent = false)
     {
-        var building = await _appDbContext.buildings.FindAsync(id);
+        var building = await _appDbContext
+            .buildings.IgnoreQueryFilters()
+            .FirstOrDefaultAsync(b => b.id == id);
+
+        var storeys = await _appDbContext.storeys.ToListAsync();
+        var activeStoriesOfBuilding = storeys.Where(s => s.building_id == id);
 
         if (building == null)
         {
             return Result.Failure($"No existing Building with ID: {id}");
         }
 
-        building.deleted_at = DateTime.UtcNow;
+        if (activeStoriesOfBuilding.Any())
+        {
+            return Result.Failure($"Cant delete Building with active Storey");
+        }
+
+        if (permanent)
+        {
+            _appDbContext.buildings.Remove(building);
+        }
+        else
+        {
+            building.deleted_at = DateTime.UtcNow;
+        }
 
         await _appDbContext.SaveChangesAsync();
 

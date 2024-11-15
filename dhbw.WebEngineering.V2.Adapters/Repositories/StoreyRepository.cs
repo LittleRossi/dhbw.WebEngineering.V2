@@ -24,7 +24,9 @@ public class StoreyRepository : IStoreyRepository
 
     public async Task<Maybe<Storey>> GetByIdAsync(Guid id)
     {
-        return await _appDbContext.storeys.FindAsync(id);
+        return await _appDbContext
+            .storeys.IgnoreQueryFilters()
+            .FirstOrDefaultAsync(b => b.id == id);
     }
 
     public async Task<Maybe<Storey>> CreateAsync(Storey entity)
@@ -37,7 +39,9 @@ public class StoreyRepository : IStoreyRepository
 
     public async Task<Maybe<Storey>> UpdateAsync(Storey entity, Guid id)
     {
-        var existingStorey = await _appDbContext.storeys.FindAsync(id);
+        var existingStorey = await _appDbContext
+            .storeys.IgnoreQueryFilters()
+            .FirstOrDefaultAsync(b => b.id == id);
 
         if (existingStorey == null)
             return null;
@@ -53,14 +57,23 @@ public class StoreyRepository : IStoreyRepository
 
     public async Task<Result> DeleteAsync(Guid id, bool permanent = false)
     {
-        var storey = await _appDbContext.storeys.FindAsync(id);
+        var storey = await _appDbContext
+            .storeys.IgnoreQueryFilters()
+            .FirstOrDefaultAsync(b => b.id == id);
 
         if (storey == null)
         {
             return Result.Failure($"No existing Storey with ID: {id}");
         }
 
-        storey.deleted_at = DateTime.UtcNow;
+        if (permanent)
+        {
+            _appDbContext.storeys.Remove(storey);
+        }
+        else
+        {
+            storey.deleted_at = DateTime.UtcNow;
+        }
 
         await _appDbContext.SaveChangesAsync();
 
