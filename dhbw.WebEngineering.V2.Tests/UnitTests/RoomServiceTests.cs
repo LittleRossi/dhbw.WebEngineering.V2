@@ -23,8 +23,8 @@ public class RoomServiceTests
         // Arrange
         var rooms = new List<Room>
         {
-            Room.Create("Room1", Guid.NewGuid()),
-            Room.Create("Room2", Guid.NewGuid()),
+            Room.Create("Room1", Guid.NewGuid()).Value,
+            Room.Create("Room2", Guid.NewGuid()).Value,
         };
 
         _roomRepositoryMock
@@ -46,8 +46,8 @@ public class RoomServiceTests
         var storeyId = Guid.NewGuid();
         var rooms = new List<Room>
         {
-            Room.Create("Room1", storeyId),
-            Room.Create("Room2", Guid.NewGuid()),
+            Room.Create("Room1", storeyId).Value,
+            Room.Create("Room2", Guid.NewGuid()).Value,
         };
 
         _roomRepositoryMock
@@ -68,7 +68,7 @@ public class RoomServiceTests
     {
         // Arrange
         var roomId = Guid.NewGuid();
-        var room = Room.Create("Room1", Guid.NewGuid());
+        var room = Room.Create("Room1", Guid.NewGuid()).Value;
         room = room with { id = roomId }; // Adjust the ID for the test
 
         _roomRepositoryMock
@@ -103,7 +103,7 @@ public class RoomServiceTests
     public async Task CreateNewAsync_ShouldReturnRoom_WhenCreationSucceeds()
     {
         // Arrange
-        var room = Room.Create("Room1", Guid.NewGuid());
+        var room = Room.Create("Room1", Guid.NewGuid()).Value;
 
         _roomRepositoryMock
             .Setup(repo => repo.CreateAsync(room))
@@ -121,7 +121,7 @@ public class RoomServiceTests
     public async Task CreateNewAsync_ShouldReturnFailure_WhenCreationFails()
     {
         // Arrange
-        var room = Room.Create("Room1", Guid.NewGuid());
+        var room = Room.Create("Room1", Guid.NewGuid()).Value;
 
         _roomRepositoryMock.Setup(repo => repo.CreateAsync(room)).ReturnsAsync(Maybe<Room>.None);
 
@@ -138,7 +138,7 @@ public class RoomServiceTests
     {
         // Arrange
         var roomId = Guid.NewGuid();
-        var room = Room.Create("UpdatedRoom", Guid.NewGuid());
+        var room = Room.Create("UpdatedRoom", Guid.NewGuid()).Value;
         room = room with { id = roomId }; // Adjust the ID for the test
 
         _roomRepositoryMock
@@ -158,7 +158,7 @@ public class RoomServiceTests
     {
         // Arrange
         var roomId = Guid.NewGuid();
-        var room = Room.Create("UpdatedRoom", Guid.NewGuid());
+        var room = Room.Create("UpdatedRoom", Guid.NewGuid()).Value;
 
         _roomRepositoryMock
             .Setup(repo => repo.UpdateAsync(room, roomId))

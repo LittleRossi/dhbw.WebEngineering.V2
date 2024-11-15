@@ -26,7 +26,7 @@ public class StoreyServiceTests
     public async Task CreateNewAsync_ShouldReturnSuccessResult_WhenRepositorySucceeds()
     {
         // Arrange
-        var newStorey = Storey.Create("First Floor", Guid.NewGuid());
+        var newStorey = Storey.Create("First Floor", Guid.NewGuid()).Value;
 
         _storeyRepositoryMock
             .Setup(repo => repo.CreateAsync(It.IsAny<Storey>()))
@@ -45,7 +45,7 @@ public class StoreyServiceTests
     public async Task CreateNewAsync_ShouldReturnFailureResult_WhenRepositoryFails()
     {
         // Arrange
-        var newStorey = Storey.Create("Second Floor", Guid.NewGuid());
+        var newStorey = Storey.Create("Second Floor", Guid.NewGuid()).Value;
 
         _storeyRepositoryMock
             .Setup(repo => repo.CreateAsync(It.IsAny<Storey>()))
@@ -66,8 +66,8 @@ public class StoreyServiceTests
         // Arrange
         var storeys = new List<Storey>
         {
-            Storey.Create("First Floor", Guid.NewGuid()),
-            Storey.Create("Second Floor", Guid.NewGuid()),
+            Storey.Create("First Floor", Guid.NewGuid()).Value,
+            Storey.Create("Second Floor", Guid.NewGuid()).Value,
         };
 
         _storeyRepositoryMock
@@ -90,8 +90,8 @@ public class StoreyServiceTests
         var buildingId = Guid.NewGuid();
         var storeys = new List<Storey>
         {
-            Storey.Create("First Floor", buildingId),
-            Storey.Create("Second Floor", Guid.NewGuid()),
+            Storey.Create("First Floor", buildingId).Value,
+            Storey.Create("Second Floor", Guid.NewGuid()).Value,
         };
 
         _storeyRepositoryMock
@@ -113,7 +113,7 @@ public class StoreyServiceTests
     {
         // Arrange
         var storeyId = Guid.NewGuid();
-        var storey = Storey.Create("First Floor", Guid.NewGuid());
+        var storey = Storey.Create("First Floor", Guid.NewGuid()).Value;
 
         _storeyRepositoryMock
             .Setup(repo => repo.GetByIdAsync(storeyId))

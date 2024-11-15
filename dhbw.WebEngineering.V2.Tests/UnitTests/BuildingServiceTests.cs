@@ -23,8 +23,8 @@ public class BuildingServiceTests
         // Arrange
         var buildings = new List<Building>
         {
-            Building.Create("Building1", "Street1", "123", "US", "12345", "City1"),
-            Building.Create("Building2", "Street2", "456", "US", "54321", "City2"),
+            Building.Create("Building1", "Street1", "123", "US", "12345", "City1").Value,
+            Building.Create("Building2", "Street2", "456", "US", "54321", "City2").Value,
         };
 
         _mockBuildingRepository
@@ -59,7 +59,7 @@ public class BuildingServiceTests
     public async Task GetByIdAsync_ShouldReturnBuilding_WhenBuildingExists()
     {
         // Arrange
-        var building = Building.Create("Building1", "Street1", "123", "US", "12345", "City1");
+        var building = Building.Create("Building1", "Street1", "123", "US", "12345", "City1").Value;
 
         _mockBuildingRepository
             .Setup(repo => repo.GetByIdAsync(building.id))
@@ -95,7 +95,7 @@ public class BuildingServiceTests
     public async Task CreateNewAsync_ShouldReturnSuccess_WhenBuildingIsCreated()
     {
         // Arrange
-        var building = Building.Create("Building1", "Street1", "123", "US", "12345", "City1");
+        var building = Building.Create("Building1", "Street1", "123", "US", "12345", "City1").Value;
 
         _mockBuildingRepository
             .Setup(repo => repo.CreateAsync(building))
@@ -114,14 +114,9 @@ public class BuildingServiceTests
     {
         // Arrange
         var buildingId = Guid.NewGuid();
-        var updatedBuilding = Building.Create(
-            "UpdatedBuilding",
-            "UpdatedStreet",
-            "456",
-            "US",
-            "54321",
-            "UpdatedCity"
-        );
+        var updatedBuilding = Building
+            .Create("UpdatedBuilding", "UpdatedStreet", "456", "US", "54321", "UpdatedCity")
+            .Value;
 
         _mockBuildingRepository
             .Setup(repo => repo.UpdateAsync(updatedBuilding, buildingId))

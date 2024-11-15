@@ -1,4 +1,5 @@
 using System.Text.Json.Serialization;
+using CSharpFunctionalExtensions;
 
 namespace dhbw.WebEngineering.V2.Domain.Storey;
 
@@ -21,8 +22,20 @@ public record Storey
         this.deleted_at = deleted_at;
     }
 
-    public static Storey Create(string name, Guid building_id)
+    public static Result<Storey> Create(string name, Guid building_id)
     {
+        #region Validation
+        if (string.IsNullOrWhiteSpace(name))
+        {
+            return Result.Failure<Storey>("Name cannot be empty.");
+        }
+
+        if (building_id == Guid.Empty)
+        {
+            return Result.Failure<Storey>("Building_id cannot be an empty GUID.");
+        }
+        #endregion
+
         return new Storey
         {
             id = Guid.NewGuid(),

@@ -6,18 +6,6 @@ public class StoreyMapper
 {
     public static Result<Storey> ToEntity(CreateStoreyDto createStoreyDto)
     {
-        #region Validation
-        if (string.IsNullOrWhiteSpace(createStoreyDto.Name))
-        {
-            return Result.Failure<Storey>("Name cannot be empty.");
-        }
-
-        if (createStoreyDto.Building_id == Guid.Empty)
-        {
-            return Result.Failure<Storey>("Building_id cannot be an empty GUID.");
-        }
-        #endregion
-
         return Storey.Create(name: createStoreyDto.Name, building_id: createStoreyDto.Building_id);
     }
 

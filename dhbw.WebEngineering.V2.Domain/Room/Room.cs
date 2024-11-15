@@ -1,4 +1,5 @@
 using System.Text.Json.Serialization;
+using CSharpFunctionalExtensions;
 
 namespace dhbw.WebEngineering.V2.Domain.Room;
 
@@ -20,8 +21,19 @@ public record Room
         this.deleted_at = deleted_at;
     }
 
-    public static Room Create(string name, Guid storey_id)
+    public static Result<Room> Create(string name, Guid storey_id)
     {
+        #region Validation
+        if (string.IsNullOrWhiteSpace(name))
+        {
+            return Result.Failure<Room>("Name cannot be empty.");
+        }
+        if (storey_id == Guid.Empty)
+        {
+            return Result.Failure<Room>("Storey_id cannot be an empty GUID.");
+        }
+        #endregion
+
         return new Room
         {
             id = Guid.NewGuid(),

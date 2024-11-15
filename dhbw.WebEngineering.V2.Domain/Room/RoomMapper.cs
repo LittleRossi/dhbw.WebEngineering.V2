@@ -6,17 +6,6 @@ public class RoomMapper
 {
     public static Result<Room> ToEntity(CreateRoomDto createRoomDto)
     {
-        #region Validation
-        if (string.IsNullOrWhiteSpace(createRoomDto.name))
-        {
-            return Result.Failure<Room>("Name cannot be empty.");
-        }
-        if (createRoomDto.storey_id == Guid.Empty)
-        {
-            return Result.Failure<Room>("Storey_id cannot be an empty GUID.");
-        }
-        #endregion
-
         return Room.Create(createRoomDto.name, createRoomDto.storey_id);
     }
 
