@@ -15,7 +15,7 @@ public class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(op
     {
         modelBuilder.Entity<Building>().HasQueryFilter(b => b.deleted_at == null);
         modelBuilder.Entity<Storey>().HasQueryFilter(s => s.deleted_at == null);
-        modelBuilder.Entity<Room>().HasQueryFilter(r => r.Deleted_at == null);
+        modelBuilder.Entity<Room>().HasQueryFilter(r => r.deleted_at == null);
 
         base.OnModelCreating(modelBuilder);
     }

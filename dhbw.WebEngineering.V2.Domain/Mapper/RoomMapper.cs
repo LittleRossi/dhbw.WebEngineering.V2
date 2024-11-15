@@ -25,10 +25,10 @@ public class RoomMapper
     {
         return new ReadRoomDto
         {
-            Id = room.Id,
-            Name = room.Name,
-            Storey_id = room.Storey_id,
-            Deleted_at = room.Deleted_at,
+            Id = room.id,
+            Name = room.name,
+            Storey_id = room.storey_id,
+            Deleted_at = room.deleted_at,
         };
     }
 

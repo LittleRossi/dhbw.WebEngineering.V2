@@ -40,4 +40,9 @@ public class StoreyMapper
 
         return result;
     }
+
+    public static StoreyResponse ToStoreyResponse(List<ReadStoreyDto> storeys)
+    {
+        return new StoreyResponse(storeys);
+    }
 }

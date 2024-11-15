@@ -15,11 +15,16 @@ public class StoreyService : IStoreyService
     }
 
     public async Task<Result<List<Storey>>> GetAllAsync(
-        Guid building_id,
+        Guid? building_id,
         bool includeDeleted = false
     )
     {
-        return await _storeyRepository.GetAllAsync().ToResult("No Storeys found");
+        var storeys = await _storeyRepository.GetAllAsync().ToResult("No Storeys found");
+
+        if (building_id == null)
+            return storeys;
+
+        return storeys.Value.Where(s => s.building_id == building_id).ToList();
     }
 
     public async Task<Result<Storey>> GetByIdAsync(Guid id)

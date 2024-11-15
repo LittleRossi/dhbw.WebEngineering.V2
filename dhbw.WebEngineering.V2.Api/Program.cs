@@ -29,5 +29,7 @@ app.UseHttpsRedirection();
 app.AddBuildingEndpoints();
 app.AddStatusEndpoints();
 app.AddRoomEndpoints();
+app.AddHealthEndpoints();
+app.AddStoreyEndpoints();
 
 app.Run();

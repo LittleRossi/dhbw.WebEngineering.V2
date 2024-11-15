@@ -42,9 +42,9 @@ public class RoomRepository : IRoomRepository
         if (existingRoom == null)
             return null;
 
-        existingRoom.Name = entity.Name;
-        existingRoom.Storey_id = entity.Storey_id;
-        existingRoom.Deleted_at = entity.Deleted_at;
+        existingRoom.name = entity.name;
+        existingRoom.storey_id = entity.storey_id;
+        existingRoom.deleted_at = entity.deleted_at;
 
         await _appDbContext.SaveChangesAsync();
 
@@ -60,7 +60,7 @@ public class RoomRepository : IRoomRepository
             return Result.Failure($"No existing Room with ID: {id}");
         }
 
-        room.Deleted_at = DateTime.UtcNow;
+        room.deleted_at = DateTime.UtcNow;
 
         await _appDbContext.SaveChangesAsync();
 

@@ -16,12 +16,12 @@ public class RoomService : IRoomService
 
     public async Task<Result<List<Room>>> GetAllAsync(Guid? storey_id, bool includeDeleted = false)
     {
-        if (storey_id == null)
-            return Result.Failure<List<Room>>("Please provide valid storey_id");
-
         var allRooms = await _roomRepository.GetAllAsync().ToResult("No Rooms found");
 
-        return allRooms.Value.Where(s => s.Storey_id == storey_id).ToList();
+        if (storey_id == null)
+            return allRooms;
+
+        return allRooms.Value.Where(s => s.storey_id == storey_id).ToList();
     }
 
     public async Task<Result<Room>> GetByIdAsync(Guid id)
