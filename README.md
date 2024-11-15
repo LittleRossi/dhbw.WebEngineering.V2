@@ -23,7 +23,7 @@ zu erreichen.
 
 ### Variablen
 
-Das Compose File kann mit einer vielzahl an Variablen gefüllt werden um die internen Einstellungen der API zu verändern.
+Das Compose File kann mit einer Vielzahl an Variablen gefüllt werden, um die internen Einstellungen der API zu verändern.
 
 ```yaml
 - POSTGRES_ASSETS_PORT
@@ -79,7 +79,7 @@ podman compose --file .\docker-compose.yaml up --detach
 
 ### Datenbank lokal als Docker Container laufen lassen
 
-Um die DB lokal laufen zu lassen, kann folgender Befehl verwendet werden. Hier sind Tabellen und co. schon erstellt:
+Um die DB lokal laufen zu lassen, kann folgender Befehl verwendet werden. Hier sind Tabellen und Co. schon erstellt:
 
 ```bash
 podman run --name mypostgresdb -p 5432:5432 ghcr.io/littlerossi/biletado-database:latest
@@ -104,7 +104,7 @@ Für genauere Informationen siehe: [Dokumentation](https://github.com/serilog/se
 
 ## Authentifizierung
 
-Die Authentifizierung läuft über einen KeyCloak Server. Hierfür müssen folgenden Environment Variables im Compose File gesetzt werden:
+Die Authentifizierung läuft über einen KeyCloak Server. Hierfür müssen folgenden Umgebungsvariablen im Compose File gesetzt werden:
 
 ```bash
 - KEYCLOAK_REALM
@@ -125,7 +125,7 @@ Um das Projekt lokal debuggen zu können, muss eine Instanz von biletado laufen.
 
 ### Starten der lokalen biletado instanz
 
-1. Falls noch nicht vorhanden, muss in Podman ein **kind Cluster** erstellt werden
+1. Falls noch nicht vorhanden muss in Podman ein **kind Cluster** erstellt werden
 2. Anschließen folgenden Befehl ausführen, diser fährt das Cluster hoch:
 
 ```bash
