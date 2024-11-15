@@ -1,5 +1,6 @@
 using System.Security.Claims;
 using CSharpFunctionalExtensions;
+using CSharpFunctionalExtensions.HttpResults.ResultExtensions;
 using CSharpFunctionalExtensions.ValueTasks;
 using dhbw.WebEngineering.V2.Application.Services;
 using dhbw.WebEngineering.V2.Domain.Storey;
@@ -18,35 +19,25 @@ public static class StoreyEndpoints
                     [FromQuery] bool include_deleted = false,
                     [FromQuery] Guid? building_id = default
                 ) =>
-                {
-                    var storeys = await service
+                    await service
                         .GetAllAsync(building_id, include_deleted)
                         .Map(StoreyMapper.ToDto)
-                        .Map(StoreyMapper.ToStoreyResponse);
-
-                    if (storeys.IsFailure)
-                        return Results.NoContent();
-
-                    return Results.Ok(storeys.Value);
-                }
+                        .Map(StoreyMapper.ToStoreyResponse)
+                        .ToNoContentHttpResult(failureStatusCode: StatusCodes.Status204NoContent)
             )
-            .WithName("Get Storeys")
+            .WithName("GetStoreys")
             .WithOpenApi()
             .WithTags("Storeys");
 
         app.MapGet(
                 "/api/v3/assets/storeys/{id}",
                 async ([FromServices] IStoreyService service, Guid id) =>
-                {
-                    var result = await service.GetByIdAsync(id).Map(StoreyMapper.ToDto);
-
-                    if (result.IsFailure)
-                        return Results.NotFound(result.Error);
-
-                    return Results.Ok(result.Value);
-                }
+                    await service
+                        .GetByIdAsync(id)
+                        .Map(StoreyMapper.ToDto)
+                        .ToOkHttpResult(failureStatusCode: StatusCodes.Status404NotFound)
             )
-            .WithName("Get Storey by Id")
+            .WithName("GetStoreyById")
             .WithOpenApi()
             .WithTags("Storeys");
 
@@ -72,7 +63,7 @@ public static class StoreyEndpoints
                 }
             )
             .RequireAuthorization()
-            .WithName("Delete Storey")
+            .WithName("DeleteStorey")
             .WithOpenApi()
             .WithTags("Storeys");
 
@@ -93,21 +84,15 @@ public static class StoreyEndpoints
                         entity
                     );
 
-                    var createdEntity = await StoreyMapper
+                    return await StoreyMapper
                         .ToEntity(entity)
                         .Bind(service.CreateNewAsync)
-                        .Map(StoreyMapper.ToDto);
-
-                    if (createdEntity.IsFailure)
-                        return Results.BadRequest(createdEntity.Error);
-
-                    var locationUri = $"/api/v3/assets/storeys/{createdEntity.Value.Id}";
-
-                    return Results.Created(locationUri, createdEntity.Value);
+                        .Map(StoreyMapper.ToDto)
+                        .ToCreatedAtRouteHttpResult("GetStoreyById", x => new { x.Id });
                 }
             )
             .RequireAuthorization()
-            .WithName("Create new Storey")
+            .WithName("CreateNewStorey")
             .WithOpenApi()
             .WithTags("Storeys");
 
@@ -128,14 +113,10 @@ public static class StoreyEndpoints
                         entity.GetType().Name,
                         entity
                     );
-                    var updatedEntity = await service
+                    return await service
                         .UpdateAsync(entity, id)
-                        .Map(StoreyMapper.ToDto);
-
-                    if (updatedEntity.IsFailure)
-                        return Results.NotFound(updatedEntity.Error);
-
-                    return Results.Ok(updatedEntity.Value);
+                        .Map(StoreyMapper.ToDto)
+                        .ToOkHttpResult(failureStatusCode: StatusCodes.Status404NotFound);
                 }
             )
             .RequireAuthorization()

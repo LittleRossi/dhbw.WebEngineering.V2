@@ -18,35 +18,25 @@ public static class RoomEndpoints
                     [FromQuery] bool include_deleted = false,
                     [FromQuery] Guid? storey_id = default
                 ) =>
-                {
-                    var fetchedLists = await service
+                    await service
                         .GetAllAsync(storey_id, include_deleted)
                         .Map(RoomMapper.ToDto)
-                        .Map(RoomMapper.ToRoomResponse);
-
-                    if (fetchedLists.IsFailure)
-                        return Results.NoContent();
-
-                    return Results.Ok(fetchedLists.Value);
-                }
+                        .Map(RoomMapper.ToRoomResponse)
+                        .ToOkHttpResult(failureStatusCode: StatusCodes.Status204NoContent)
             )
-            .WithName("Get all Rooms")
+            .WithName("GetAllRooms")
             .WithOpenApi()
             .WithTags("Rooms");
 
         app.MapGet(
                 "/api/v3/assets/rooms/{id}",
                 async ([FromServices] IRoomService service, Guid id) =>
-                {
-                    var fetchedBuilding = await service.GetByIdAsync(id).Map(RoomMapper.ToDto);
-
-                    if (fetchedBuilding.IsFailure)
-                        return Results.NotFound(fetchedBuilding.Error);
-
-                    return fetchedBuilding.ToOkHttpResult();
-                }
+                    await service
+                        .GetByIdAsync(id)
+                        .Map(RoomMapper.ToDto)
+                        .ToOkHttpResult(failureStatusCode: StatusCodes.Status404NotFound)
             )
-            .WithName("Get Room by Id")
+            .WithName("GetRoomById")
             .WithOpenApi()
             .WithTags("Rooms");
 
@@ -67,20 +57,15 @@ public static class RoomEndpoints
                         entity
                     );
 
-                    var createdEntity = await RoomMapper
+                    return await RoomMapper
                         .ToEntity(entity)
                         .Bind(service.CreateNewAsync)
-                        .Map(RoomMapper.ToDto);
-
-                    if (createdEntity.IsFailure)
-                        return createdEntity.ToCreatedHttpResult();
-
-                    var locationUri = $"/api/v3/assets/rooms/{createdEntity.Value.Id}";
-                    return Results.Created(locationUri, createdEntity.Value);
+                        .Map(RoomMapper.ToDto)
+                        .ToCreatedAtRouteHttpResult("GetRoomById", x => new { x.Id });
                 }
             )
             .RequireAuthorization()
-            .WithName("Create new Room")
+            .WithName("CreateNewRoom")
             .WithOpenApi()
             .WithTags("Rooms");
 
@@ -96,16 +81,11 @@ public static class RoomEndpoints
                 {
                     var uId = user.Claims.First(c => c.Type == "sid").Value;
                     logger.LogInformation("User {uId} deletes Room id: {id}", uId, id);
-                    var deleteSuccessfull = await service.DeleteAsync(id, permanent);
-
-                    if (deleteSuccessfull.IsFailure)
-                        return Results.BadRequest(deleteSuccessfull.Error);
-
-                    return Results.NoContent();
+                    return await service.DeleteAsync(id, permanent).ToNoContentHttpResult();
                 }
             )
             .RequireAuthorization()
-            .WithName("Delete Room")
+            .WithName("DeleteRoom")
             .WithOpenApi()
             .WithTags("Rooms");
 
@@ -127,19 +107,15 @@ public static class RoomEndpoints
                         entity
                     );
 
-                    var updatedEntity = await RoomMapper
+                    return await RoomMapper
                         .ToEntity(entity)
                         .Bind(mappedEntity => service.UpdateAsync(mappedEntity, id))
-                        .Map(RoomMapper.ToDto);
-
-                    if (updatedEntity.IsFailure)
-                        return Results.NotFound(updatedEntity.Error);
-
-                    return Results.Ok(updatedEntity.Value);
+                        .Map(RoomMapper.ToDto)
+                        .ToOkHttpResult(failureStatusCode: StatusCodes.Status404NotFound);
                 }
             )
             .RequireAuthorization()
-            .WithName("Update Room")
+            .WithName("UpdateRoom")
             .WithOpenApi()
             .WithTags("Rooms");
     }

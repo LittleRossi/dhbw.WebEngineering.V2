@@ -23,23 +23,19 @@ public static class BuildingEndpoints
                         .Map(BuildingMapper.ToBuildingsResponse)
                         .ToOkHttpResult()
             )
-            .WithName("Get all Buildings")
+            .WithName("GetAllBuildings")
             .WithOpenApi()
             .WithTags("Buildings");
 
         app.MapGet(
                 "/api/v3/assets/buildings/{id}",
                 async ([FromServices] IBuildingService service, Guid id) =>
-                {
-                    var fetchedBuilding = await service.GetByIdAsync(id).Map(BuildingMapper.ToDto);
-
-                    if (fetchedBuilding.IsFailure)
-                        return Results.NotFound(fetchedBuilding.Error);
-
-                    return fetchedBuilding.ToOkHttpResult();
-                }
+                    await service
+                        .GetByIdAsync(id)
+                        .Map(BuildingMapper.ToDto)
+                        .ToOkHttpResult(failureStatusCode: StatusCodes.Status404NotFound)
             )
-            .WithName("Get Building by Id")
+            .WithName("GetBuildingById")
             .WithOpenApi()
             .WithTags("Buildings");
 
@@ -60,20 +56,18 @@ public static class BuildingEndpoints
                         entity
                     );
 
-                    var createdEntity = await BuildingMapper
+                    return await BuildingMapper
                         .ToEntity(entity)
                         .Bind(service.CreateNewAsync)
-                        .Map(BuildingMapper.ToDto);
-
-                    if (createdEntity.IsFailure)
-                        return createdEntity.ToCreatedHttpResult();
-
-                    var locationUri = $"/api/v3/assets/buildings/{createdEntity.Value.Id}";
-                    return Results.Created(locationUri, createdEntity.Value);
+                        .Map(BuildingMapper.ToDto)
+                        .ToCreatedAtRouteHttpResult(
+                            routeName: "GetBuildingById",
+                            routeValues: x => new { x.Id }
+                        );
                 }
             )
             .RequireAuthorization()
-            .WithName("Create new Building")
+            .WithName("CreateNewBuilding")
             .WithOpenApi()
             .WithTags("Buildings");
 
@@ -95,19 +89,15 @@ public static class BuildingEndpoints
                         entity
                     );
 
-                    var updatedEntity = await BuildingMapper
+                    return await BuildingMapper
                         .ToEntity(entity)
                         .Bind(mappedEntity => service.UpdateAsync(mappedEntity, id))
-                        .Map(BuildingMapper.ToDto);
-
-                    if (updatedEntity.IsFailure)
-                        return Results.NotFound(updatedEntity.Error);
-
-                    return Results.Ok(updatedEntity.Value);
+                        .Map(BuildingMapper.ToDto)
+                        .ToOkHttpResult(failureStatusCode: StatusCodes.Status404NotFound);
                 }
             )
             .RequireAuthorization()
-            .WithName("Update Building")
+            .WithName("UpdateBuilding")
             .WithOpenApi()
             .WithTags("Buildings");
 
@@ -123,16 +113,12 @@ public static class BuildingEndpoints
                 {
                     var uId = user.Claims.First(c => c.Type == "sid").Value;
                     logger.LogInformation("User {uId} deletes with id: {uId}", uId, uId);
-                    var deleteSuccessfull = await service.DeleteAsync(id, permanent);
 
-                    if (deleteSuccessfull.IsFailure)
-                        return Results.BadRequest(deleteSuccessfull.Error);
-
-                    return Results.NoContent();
+                    return await service.DeleteAsync(id, permanent).ToNoContentHttpResult();
                 }
             )
             .RequireAuthorization()
-            .WithName("Delete Building")
+            .WithName("DeleteBuilding")
             .WithOpenApi()
             .WithTags("Buildings");
     }

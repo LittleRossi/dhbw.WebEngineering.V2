@@ -12,15 +12,6 @@ public record Room
 
     private Room() { }
 
-    [JsonConstructor]
-    public Room(Guid id, string name, Guid storey_id, DateTime? deleted_at)
-    {
-        this.id = id;
-        this.name = name;
-        this.storey_id = storey_id;
-        this.deleted_at = deleted_at;
-    }
-
     public static Result<Room> Create(string name, Guid storey_id)
     {
         #region Validation

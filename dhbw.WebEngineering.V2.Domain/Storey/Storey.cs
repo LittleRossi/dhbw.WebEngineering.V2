@@ -12,16 +12,6 @@ public record Storey
 
     private Storey() { }
 
-    // Constructor for JSON deserialization
-    [JsonConstructor]
-    public Storey(Guid id, string name, Guid building_id, DateTime? deleted_at)
-    {
-        this.id = id;
-        this.name = name;
-        this.building_id = building_id;
-        this.deleted_at = deleted_at;
-    }
-
     public static Result<Storey> Create(string name, Guid building_id)
     {
         #region Validation

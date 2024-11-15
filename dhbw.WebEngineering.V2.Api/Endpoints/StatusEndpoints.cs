@@ -11,7 +11,7 @@ public static class StatusEndpoints
                 "/api/v3/assets/status",
                 ([FromServices] IStatusService service) => service.GetStatusInformation()
             )
-            .WithName("Get Status")
+            .WithName("GetStatus")
             .WithOpenApi()
             .WithTags("Status");
     }

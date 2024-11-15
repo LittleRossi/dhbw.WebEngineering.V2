@@ -1,4 +1,3 @@
-using System.Text.Json.Serialization;
 using System.Text.RegularExpressions;
 using CSharpFunctionalExtensions;
 
@@ -17,29 +16,6 @@ public record Building
     public required DateTime? deleted_at { get; set; }
 
     private Building() { }
-
-    // Constructor for JSON deserialization
-    [JsonConstructor]
-    public Building(
-        Guid id,
-        string name,
-        string streetname,
-        string housenumber,
-        string country_code,
-        string postalcode,
-        string city,
-        DateTime deleted_at
-    )
-    {
-        this.id = id;
-        this.name = name;
-        this.streetname = streetname;
-        this.housenumber = housenumber;
-        this.country_code = country_code;
-        this.postalcode = postalcode;
-        this.city = city;
-        this.deleted_at = deleted_at;
-    }
 
     public static Result<Building> Create(
         string name,
