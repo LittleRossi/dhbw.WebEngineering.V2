@@ -1,6 +1,6 @@
-using dhbw.WebEngineering.V2.Domain.Entities.Building;
-using dhbw.WebEngineering.V2.Domain.Entities.Room;
-using dhbw.WebEngineering.V2.Domain.Entities.Storey;
+using dhbw.WebEngineering.V2.Domain.Building;
+using dhbw.WebEngineering.V2.Domain.Room;
+using dhbw.WebEngineering.V2.Domain.Storey;
 using Microsoft.EntityFrameworkCore;
 
 namespace dhbw.WebEngineering.V2.Adapters.Database;

@@ -1,7 +1,6 @@
 using CSharpFunctionalExtensions;
-using dhbw.WebEngineering.V2.Domain.Entities.Storey;
 
-namespace dhbw.WebEngineering.V2.Domain.Mapper;
+namespace dhbw.WebEngineering.V2.Domain.Storey;
 
 public class StoreyMapper
 {

@@ -1,7 +1,6 @@
 using CSharpFunctionalExtensions;
 using dhbw.WebEngineering.V2.Application.Services;
-using dhbw.WebEngineering.V2.Domain.Entities.Building;
-using dhbw.WebEngineering.V2.Domain.Interfaces.Repository;
+using dhbw.WebEngineering.V2.Domain.Building;
 using Moq;
 using Xunit;
 

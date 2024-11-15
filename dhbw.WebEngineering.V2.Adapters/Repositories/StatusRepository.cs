@@ -1,5 +1,4 @@
-﻿using dhbw.WebEngineering.V2.Domain.Entities.Status;
-using dhbw.WebEngineering.V2.Domain.Interfaces.Repository;
+﻿using dhbw.WebEngineering.V2.Domain.Status;
 
 namespace dhbw.WebEngineering.V2.Adapters.Repositories;
 

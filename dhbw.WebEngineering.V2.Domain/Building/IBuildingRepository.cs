@@ -1,7 +1,6 @@
 using CSharpFunctionalExtensions;
-using dhbw.WebEngineering.V2.Domain.Entities.Building;
 
-namespace dhbw.WebEngineering.V2.Domain.Interfaces.Repository;
+namespace dhbw.WebEngineering.V2.Domain.Building;
 
 public interface IBuildingRepository
 {

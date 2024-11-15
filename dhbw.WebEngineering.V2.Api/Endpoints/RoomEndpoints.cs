@@ -2,9 +2,7 @@ using System.Security.Claims;
 using CSharpFunctionalExtensions;
 using CSharpFunctionalExtensions.HttpResults.ResultExtensions;
 using dhbw.WebEngineering.V2.Application.Services;
-using dhbw.WebEngineering.V2.Domain.Entities.Room;
-using dhbw.WebEngineering.V2.Domain.Interfaces.Service;
-using dhbw.WebEngineering.V2.Domain.Mapper;
+using dhbw.WebEngineering.V2.Domain.Room;
 using Microsoft.AspNetCore.Mvc;
 
 namespace dhbw.WebEngineering.V2.Api.Endpoints;

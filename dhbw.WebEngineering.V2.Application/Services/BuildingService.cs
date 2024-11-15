@@ -1,7 +1,5 @@
 using CSharpFunctionalExtensions;
-using dhbw.WebEngineering.V2.Domain.Entities.Building;
-using dhbw.WebEngineering.V2.Domain.Interfaces.Repository;
-using dhbw.WebEngineering.V2.Domain.Interfaces.Service;
+using dhbw.WebEngineering.V2.Domain.Building;
 
 namespace dhbw.WebEngineering.V2.Application.Services;
 

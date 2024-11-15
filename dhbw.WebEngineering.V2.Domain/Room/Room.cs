@@ -1,6 +1,6 @@
 using System.Text.Json.Serialization;
 
-namespace dhbw.WebEngineering.V2.Domain.Entities.Room;
+namespace dhbw.WebEngineering.V2.Domain.Room;
 
 public record Room
 {

@@ -1,4 +1,4 @@
-namespace dhbw.WebEngineering.V2.Domain.Entities.Building;
+namespace dhbw.WebEngineering.V2.Domain.Building;
 
 public class BuildingResponse
 {

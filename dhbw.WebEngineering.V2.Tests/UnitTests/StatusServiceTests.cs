@@ -1,9 +1,9 @@
+using dhbw.WebEngineering.V2.Domain.Status;
+
 namespace dhbw.WebEngineering.V2.Tests.UnitTests;
 
 using System.Collections.Generic;
 using Application.Services;
-using Domain.Entities.Status;
-using Domain.Interfaces.Repository;
 using Moq;
 using Xunit;
 

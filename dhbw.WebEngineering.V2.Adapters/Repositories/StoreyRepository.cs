@@ -1,7 +1,6 @@
 using CSharpFunctionalExtensions;
 using dhbw.WebEngineering.V2.Adapters.Database;
-using dhbw.WebEngineering.V2.Domain.Entities.Storey;
-using dhbw.WebEngineering.V2.Domain.Interfaces.Repository;
+using dhbw.WebEngineering.V2.Domain.Storey;
 using Microsoft.EntityFrameworkCore;
 
 namespace dhbw.WebEngineering.V2.Adapters.Repositories;

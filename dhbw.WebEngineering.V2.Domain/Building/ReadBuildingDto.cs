@@ -1,6 +1,6 @@
 using System.Text.Json.Serialization;
 
-namespace dhbw.WebEngineering.V2.Domain.Entities.Building;
+namespace dhbw.WebEngineering.V2.Domain.Building;
 
 public record ReadBuildingDto
 {

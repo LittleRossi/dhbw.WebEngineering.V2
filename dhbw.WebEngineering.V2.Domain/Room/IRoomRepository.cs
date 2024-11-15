@@ -1,7 +1,6 @@
 ﻿using CSharpFunctionalExtensions;
-using dhbw.WebEngineering.V2.Domain.Entities.Room;
 
-namespace dhbw.WebEngineering.V2.Domain.Interfaces.Repository;
+namespace dhbw.WebEngineering.V2.Domain.Room;
 
 public interface IRoomRepository
 {

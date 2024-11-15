@@ -1,3 +1,5 @@
+using dhbw.WebEngineering.V2.Domain.Storey;
+
 namespace dhbw.WebEngineering.V2.Tests.UnitTests;
 
 using System;
@@ -6,8 +8,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using Application.Services;
 using CSharpFunctionalExtensions;
-using Domain.Entities.Storey;
-using Domain.Interfaces.Repository;
 using Moq;
 using Xunit;
 

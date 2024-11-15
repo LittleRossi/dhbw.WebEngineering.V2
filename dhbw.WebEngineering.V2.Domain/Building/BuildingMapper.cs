@@ -1,8 +1,7 @@
 using System.Text.RegularExpressions;
 using CSharpFunctionalExtensions;
-using dhbw.WebEngineering.V2.Domain.Entities.Building;
 
-namespace dhbw.WebEngineering.V2.Domain.Mapper;
+namespace dhbw.WebEngineering.V2.Domain.Building;
 
 public static class BuildingMapper
 {

@@ -1,7 +1,9 @@
 using dhbw.WebEngineering.V2.Adapters.Repositories;
 using dhbw.WebEngineering.V2.Application.Services;
-using dhbw.WebEngineering.V2.Domain.Interfaces.Repository;
-using dhbw.WebEngineering.V2.Domain.Interfaces.Service;
+using dhbw.WebEngineering.V2.Domain.Building;
+using dhbw.WebEngineering.V2.Domain.Room;
+using dhbw.WebEngineering.V2.Domain.Status;
+using dhbw.WebEngineering.V2.Domain.Storey;
 
 namespace dhbw.WebEngineering.V2.Api.Extensions;
 

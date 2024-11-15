@@ -1,4 +1,4 @@
-using dhbw.WebEngineering.V2.Domain.Interfaces.Service;
+using dhbw.WebEngineering.V2.Domain.Status;
 using Microsoft.AspNetCore.Mvc;
 
 namespace dhbw.WebEngineering.V2.Api.Endpoints;
