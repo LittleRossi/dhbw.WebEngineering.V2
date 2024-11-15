@@ -1,9 +1,17 @@
-# dhbw.WebEngineering Projekt
+# DHBW WebEngineering Biletado
+
+## Hintergrund
+Dieses Projekt wurde im Rahmen der Vorlesung Web Engineering 2 an der DHBW Karlsruhe im 5. Semester erstellt.
+Es handelt sich um die Implementierung einer API, die das Verwalten von Häusern, Räumen und Stockwerken ermöglicht.
+
+### Wichtige Links
+- (Repo) *https://gitlab.com/biletado*
+- (API-Docs) *https://demo.biletado.org/rapidoc/*
+- (demo Instanz) *https://demo.biletado.org/*
+
 
 ## Docker Compose
-
 ### Docker Image
-
 Das Docker-Image der api liegt auf der ghcr und ist unter
 
 ```docker
@@ -231,13 +239,3 @@ Folgenden Befehl ausführen im Ordner wo die kustomization.yaml liegt (**dhbw.We
 kubectl apply -k . --prune -l app.kubernetes.io/part-of=biletado -n biletado
 kubectl wait pods -n biletado -l app.kubernetes.io/part-of=biletado --for condition=Ready --timeout=120s
 ```
-
-## Hintergrund
-
-Dieses Projekt wurde im Rahmen der Vorlesung Web Engineering 2 an der DHBW Karlsruhe im 5. Semester erstellt.
-
-### Wichtige Links
-
-- (Repo) *https://gitlab.com/biletado*
-- (API-Docs) *https://demo.biletado.org/rapidoc/*
-- (demo Instanz) *https://demo.biletado.org/*
