@@ -8,6 +8,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "dhbw.WebEngineering.V2.Appl
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "dhbw.WebEngineering.V2.Adapters", "dhbw.WebEngineering.V2.Adapters\dhbw.WebEngineering.V2.Adapters.csproj", "{503C1B40-C129-4C3F-B680-3F492CC2FA27}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "dhbw.WebEngineering.V2.Tests", "dhbw.WebEngineering.V2.Tests\dhbw.WebEngineering.V2.Tests.csproj", "{EDD056BE-2F01-42BE-9F41-7BEA2901CF93}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -30,5 +32,9 @@ Global
 		{503C1B40-C129-4C3F-B680-3F492CC2FA27}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{503C1B40-C129-4C3F-B680-3F492CC2FA27}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{503C1B40-C129-4C3F-B680-3F492CC2FA27}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EDD056BE-2F01-42BE-9F41-7BEA2901CF93}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EDD056BE-2F01-42BE-9F41-7BEA2901CF93}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EDD056BE-2F01-42BE-9F41-7BEA2901CF93}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EDD056BE-2F01-42BE-9F41-7BEA2901CF93}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
