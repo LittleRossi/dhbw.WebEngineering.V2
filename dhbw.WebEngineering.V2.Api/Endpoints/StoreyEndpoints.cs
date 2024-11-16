@@ -23,7 +23,7 @@ public static class StoreyEndpoints
                         .GetAllAsync(building_id, include_deleted)
                         .Map(StoreyMapper.ToDto)
                         .Map(StoreyMapper.ToStoreyResponse)
-                        .ToNoContentHttpResult(failureStatusCode: StatusCodes.Status204NoContent)
+                        .ToOkHttpResult(failureStatusCode: StatusCodes.Status204NoContent)
             )
             .WithName("GetStoreys")
             .WithOpenApi()
