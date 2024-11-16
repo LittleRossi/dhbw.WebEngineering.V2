@@ -60,10 +60,10 @@ public static class BuildingEndpoints
                         .ToEntity(entity)
                         .Bind(service.CreateNewAsync)
                         .Map(BuildingMapper.ToDto)
-                        .ToCreatedAtRouteHttpResult(
-                            routeName: "GetBuildingById",
-                            routeValues: x => new { x.Id }
-                        );
+                        .ToCreatedHttpResult(b => new Uri(
+                            $"/api/v3/assets/buildings/{b.Id.ToString()}",
+                            UriKind.Relative
+                        ));
                 }
             )
             .RequireAuthorization()

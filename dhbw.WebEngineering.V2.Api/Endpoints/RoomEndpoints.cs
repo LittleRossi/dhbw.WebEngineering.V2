@@ -61,7 +61,10 @@ public static class RoomEndpoints
                         .ToEntity(entity)
                         .Bind(service.CreateNewAsync)
                         .Map(RoomMapper.ToDto)
-                        .ToCreatedAtRouteHttpResult("GetRoomById", x => new { x.Id });
+                        .ToCreatedHttpResult(r => new Uri(
+                            $"/api/v3/assets/rooms/{r.Id.ToString()}",
+                            UriKind.Relative
+                        ));
                 }
             )
             .RequireAuthorization()

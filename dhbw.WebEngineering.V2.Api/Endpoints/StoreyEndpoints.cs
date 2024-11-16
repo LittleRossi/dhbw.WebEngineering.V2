@@ -88,7 +88,10 @@ public static class StoreyEndpoints
                         .ToEntity(entity)
                         .Bind(service.CreateNewAsync)
                         .Map(StoreyMapper.ToDto)
-                        .ToCreatedAtRouteHttpResult("GetStoreyById", x => new { x.Id });
+                        .ToCreatedHttpResult(s => new Uri(
+                            $"/api/v3/assets/storeys/{s.Id.ToString()}",
+                            UriKind.Relative
+                        ));
                 }
             )
             .RequireAuthorization()
