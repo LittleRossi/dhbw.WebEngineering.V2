@@ -30,6 +30,11 @@ public class StoreyRepository : IStoreyRepository
 
     public async Task<Maybe<Storey>> CreateAsync(Storey entity)
     {
+        var building = await _appDbContext.buildings.FindAsync(entity.building_id);
+
+        if (building == null)
+            return null;
+
         var result = await _appDbContext.storeys.AddAsync(entity);
         await _appDbContext.SaveChangesAsync();
 

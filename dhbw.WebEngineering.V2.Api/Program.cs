@@ -1,7 +1,6 @@
 using dhbw.WebEngineering.V2.Adapters.Database;
 using dhbw.WebEngineering.V2.Api.Endpoints;
 using dhbw.WebEngineering.V2.Api.Extensions;
-using dhbw.WebEngineering.V2.Domain.Storey;
 using Microsoft.Extensions.Diagnostics.HealthChecks;
 
 var builder = WebApplication.CreateBuilder(args);
