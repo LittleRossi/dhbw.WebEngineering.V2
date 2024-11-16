@@ -72,8 +72,14 @@ public class RoomRepository : IRoomRepository
             room.deleted_at = DateTime.UtcNow;
         }
 
-        await _appDbContext.SaveChangesAsync();
-
-        return Result.Success();
+        try
+        {
+            await _appDbContext.SaveChangesAsync();
+            return Result.Success();
+        }
+        catch (Exception e)
+        {
+            return Result.Failure(e.Message);
+        }
     }
 }

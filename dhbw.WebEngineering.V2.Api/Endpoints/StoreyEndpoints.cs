@@ -54,12 +54,9 @@ public static class StoreyEndpoints
                     var uId = user.Claims.First(c => c.Type == "sid").Value;
                     logger.LogInformation("User {uId} deletes Storey id: {id}", uId, id);
 
-                    var deletion = await service.DeleteAsync(id, permanent);
-
-                    if (deletion.IsFailure)
-                        return Results.BadRequest(deletion.Error);
-
-                    return Results.NotFound();
+                    return await service
+                        .DeleteAsync(id, permanent)
+                        .ToNoContentHttpResult(failureStatusCode: StatusCodes.Status400BadRequest);
                 }
             )
             .RequireAuthorization()

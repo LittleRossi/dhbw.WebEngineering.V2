@@ -114,7 +114,9 @@ public static class BuildingEndpoints
                     var uId = user.Claims.First(c => c.Type == "sid").Value;
                     logger.LogInformation("User {uId} deletes with id: {uId}", uId, uId);
 
-                    return await service.DeleteAsync(id, permanent).ToNoContentHttpResult();
+                    return await service
+                        .DeleteAsync(id, permanent)
+                        .ToNoContentHttpResult(failureStatusCode: StatusCodes.Status400BadRequest);
                 }
             )
             .RequireAuthorization()
