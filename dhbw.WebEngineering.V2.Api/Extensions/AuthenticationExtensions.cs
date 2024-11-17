@@ -1,6 +1,4 @@
-using System.Text.Json;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 
 namespace dhbw.WebEngineering.V2.Api.Extensions;
@@ -44,30 +42,6 @@ public static class AuthenticationExtensions
                     ValidateAudience = true,
                     ValidAudience = configuration["KEYCLOAK_AUDIENCE"],
                     ValidateLifetime = true,
-                };
-
-                // Custom 401 response
-                options.Events = new JwtBearerEvents
-                {
-                    OnChallenge = async context =>
-                    {
-                        context.HandleResponse();
-                        context.Response.StatusCode = StatusCodes.Status401Unauthorized;
-                        context.Response.ContentType = "application/problem+json";
-                        var problemDetails = new ProblemDetails
-                        {
-                            Status = StatusCodes.Status401Unauthorized,
-                            Title = "Unauthorized",
-                            Detail = "You are not authorized to access this resource.",
-                            Instance = context.Request.Path,
-                        };
-                        var options = new JsonSerializerOptions
-                        {
-                            PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
-                        };
-                        var json = JsonSerializer.Serialize(problemDetails, options);
-                        await context.Response.WriteAsync(json);
-                    },
                 };
             });
     }

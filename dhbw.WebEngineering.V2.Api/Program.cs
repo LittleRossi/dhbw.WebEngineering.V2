@@ -1,6 +1,7 @@
 using dhbw.WebEngineering.V2.Adapters.Database;
 using dhbw.WebEngineering.V2.Api.Endpoints;
 using dhbw.WebEngineering.V2.Api.Extensions;
+using dhbw.WebEngineering.V2.Api.ResponseMiddleware;
 using Microsoft.Extensions.Diagnostics.HealthChecks;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -17,6 +18,10 @@ await builder.Services.AddJwtAuthenticationAsync(builder.Configuration, builder.
 builder.Services.AddCustomJsonConverters(); // Add custom JSON converters to services
 
 var app = builder.Build();
+
+app.UseMiddleware<UnauthorizedMiddleware>();
+app.UseAuthentication();
+app.UseAuthorization();
 
 if (app.Environment.IsDevelopment())
 {
