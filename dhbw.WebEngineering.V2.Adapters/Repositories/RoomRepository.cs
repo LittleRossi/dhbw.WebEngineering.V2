@@ -41,7 +41,7 @@ public class RoomRepository : IRoomRepository
             .FirstOrDefaultAsync(b => b.id == id);
 
         if (existingRoom == null)
-            return null;
+            return await CreateAsync(entity);
 
         existingRoom.name = entity.name;
         existingRoom.storey_id = entity.storey_id;

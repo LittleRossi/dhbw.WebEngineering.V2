@@ -48,7 +48,7 @@ public class StoreyRepository : IStoreyRepository
             .FirstOrDefaultAsync(b => b.id == id);
 
         if (existingStorey == null)
-            return null;
+            return await CreateAsync(entity);
 
         existingStorey.name = entity.name;
         existingStorey.building_id = entity.building_id;

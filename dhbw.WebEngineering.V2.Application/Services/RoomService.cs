@@ -14,7 +14,7 @@ public class RoomService : IRoomService
 
     public async Task<Result<List<Room>>> GetAllAsync(Guid? storey_id, bool includeDeleted = false)
     {
-        var allRooms = await _roomRepository.GetAllAsync().ToResult("No Rooms found");
+        var allRooms = await _roomRepository.GetAllAsync(includeDeleted).ToResult("No Rooms found");
 
         if (storey_id == null)
             return allRooms;

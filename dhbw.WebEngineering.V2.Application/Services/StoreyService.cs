@@ -17,7 +17,9 @@ public class StoreyService : IStoreyService
         bool includeDeleted = false
     )
     {
-        var storeys = await _storeyRepository.GetAllAsync().ToResult("No Storeys found");
+        var storeys = await _storeyRepository
+            .GetAllAsync(includeDeleted)
+            .ToResult("No Storeys found");
 
         if (building_id == null)
             return storeys;

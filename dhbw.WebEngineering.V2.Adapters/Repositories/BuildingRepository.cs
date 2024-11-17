@@ -44,7 +44,7 @@ public class BuildingRepository : IBuildingRepository
             .FirstOrDefaultAsync(b => b.id == id);
 
         if (existingBuilding == null)
-            return null;
+            return await CreateAsync(entity);
 
         existingBuilding.name = entity.name;
         existingBuilding.streetname = entity.streetname;
